@@ -82,17 +82,28 @@
                 <h2>Tab Section</h2>
                 <h3>This is some text inside of a div block.</h3>
                 <div class="d-flex tab-btns">
-                    <a class="btn btn-three">Tab Button 1</a>
-                    <a class="btn btn-three">Tab Button 2</a>
-                    <a class="btn btn-three">Tab Button 3</a>
+                    <a class="btn btn-three tab-button" data-tab="1">Tab Button 1</a>
+                    <a class="btn btn-three tab-button" data-tab="2">Tab Button 2</a>
+                    <a class="btn btn-three tab-button" data-tab="3">Tab Button 3</a>
                 </div>
-                <div class="tab-block">
+                <div id="tab-content-1" class="tab-block active">
                     <img src="assets/images/IMAGE3.png" alt="tab">
-                    <h2>Some Title Here</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.<br>Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.<br>Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+                    <h2>Tab 1 Title</h2>
+                    <p>Content for Tab 1</p>
+                </div>                
+                <div class="tab-block" id="tab-content-2">
+                    <img src="assets/images/IMAGE2.png" alt="tab">
+                    <h2>Tab 2 Title</h2>
+                    <p>Content for Tab 2</p>
+                </div>
+                <div class="tab-block" id="tab-content-3">
+                    <img src="assets/images/IMAGE1.png" alt="tab">
+                    <h2>Tab 3 Title</h2>
+                    <p>Content for Tab 3</p>
                 </div>
             </div>
         </section>
+        
     </main>
     <footer>
         <div class="container">
@@ -137,6 +148,30 @@
 
         burger.addEventListener("click", function () {
             navItems.classList.toggle("active");
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-block');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+
+                const tabNumber = button.getAttribute('data-tab');
+
+                document.getElementById(`tab-content-${tabNumber}`).classList.add('active');
+                const tabContent = document.getElementById(`tab-content-${tabNumber}`);
+                tabContent.style.opacity = 0;
+                tabContent.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    tabContent.style.opacity = 1;
+                    tabContent.style.transform = 'translateY(0)';
+                }, 300);
+            });
         });
     });
     </script>
